@@ -11,6 +11,7 @@ html {
 img {
   display: block;
   width: 100%;
+  height: auto;
 }
 
 body {
@@ -59,6 +60,10 @@ ul {
 
 .stats {
   display: flex;
-  align-content: center;
+
   justify-content: space-between;
+}
+.stats-item {
+  display: flex;
+  align-items: center;
 }
