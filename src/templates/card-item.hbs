@@ -1,30 +1,26 @@
-<ul class="gallery">
+{{#each this}}
+<li class="card-item">
+  <div class="photo-card">
+    <img src="{{webformatURL}}" alt="{{tags}}" />
 
-  {{#each hits}}
-  <li class="card-item">
-    <div class="photo-card">
-      <img src="{{this.webformatURL}}" alt="{{this.tags}}" />
-
-      <div class="stats">
-        <p class="stats-item">
-          <i class="material-icons">thumb_up</i>
-          {{this.likes}}
-        </p>
-        <p class="stats-item">
-          <i class="material-icons">visibility</i>
-          {{this.views}}
-        </p>
-        <p class="stats-item">
-          <i class="material-icons">comment</i>
-          {{this.comments}}
-        </p>
-        <p class="stats-item">
-          <i class="material-icons">cloud_download</i>
-          {{this.downloads}}
-        </p>
-      </div>
+    <div class="stats">
+      <p class="stats-item">
+        <i class="material-icons">thumb_up</i>
+        {{likes}}
+      </p>
+      <p class="stats-item">
+        <i class="material-icons">visibility</i>
+        {{views}}
+      </p>
+      <p class="stats-item">
+        <i class="material-icons">comment</i>
+        {{comments}}
+      </p>
+      <p class="stats-item">
+        <i class="material-icons">cloud_download</i>
+        {{downloads}}
+      </p>
     </div>
-  </li>
-  {{/each}}
-
-</ul>
+  </div>
+</li>
+{{/each}}

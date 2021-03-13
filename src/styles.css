@@ -8,12 +8,6 @@ html {
   box-sizing: inherit;
 }
 
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
@@ -31,7 +25,7 @@ ul {
 }
 
 .container {
-  width: 1200px;
+  width: 1080px;
   margin: auto;
 }
 
@@ -46,24 +40,65 @@ ul {
 }
 
 .card-item {
-  width: calc((100% - 60px) / 3);
-  margin-right: 30px;
-  margin-bottom: 15px;
+  position: relative;
+  width: calc((100% - 15px) / 4);
+
+  margin-right: 5px;
+  margin-bottom: 5px;
+
+  overflow: hidden;
 }
-.card-item:nth-last-child(-n + 3) {
+.card-item:nth-last-child(-n + 4) {
   margin-bottom: 0px;
 }
 
-.card-item:nth-child(3n) {
+.card-item:nth-child(4n) {
   margin-right: 0px;
 }
 
-.stats {
-  display: flex;
+.card-item:hover,
+.card-item:focus {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
+    1px 4px 6px rgba(0, 0, 0, 0.16);
+}
 
+.photo-card {
+  height: 266px;
+}
+
+.photo-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-item:hover .stats,
+.card-item:focus .stats {
+  transform: translatey(216px);
+}
+
+.stats {
+  position: absolute;
+  display: flex;
+  bottom: 0;
   justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  min-width: 100%;
+  padding: 10px;
+  background: rgba(189, 189, 189, 0.4);
+
+  top: 0;
+  transform: translatey(266px);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .stats-item {
   display: flex;
   align-items: center;
+}
+
+.material-icons {
+  color: rgb(20, 20, 20);
+  font-size: 18px;
 }

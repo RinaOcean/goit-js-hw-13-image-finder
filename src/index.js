@@ -1,27 +1,50 @@
 import './styles.css';
 import cardTemplate from './templates/card-item.hbs';
-// https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=что_искать&page=номер_страницы&per_page=12&key=твой_ключ
+
+import ImagesApiService from './js/components/images-services';
 
 const refs = {
   searchForm: document.getElementById('search-form'),
-  container: document.querySelector('.container'),
+  gallery: document.querySelector('.gallery-js'),
+  loadMoreBtn: document.querySelector('.load-more-button'),
+  observerItem: document.querySelector('.observer-item'),
 };
 
+const intersectionHandler = entries => {
+  const { isIntersecting } = entries[0];
+  if (isIntersecting) {
+    renderMore();
+  }
+};
+
+const imagesApiService = new ImagesApiService();
+const observer = new IntersectionObserver(intersectionHandler);
+observer.observe(refs.observerItem);
+
 refs.searchForm.addEventListener('submit', onSearch);
+refs.loadMoreBtn.addEventListener('click', renderMore);
+
 function onSearch(event) {
   event.preventDefault();
 
-  const searchQuery = event.currentTarget.elements.query.value;
-  const API_KEY = '20659430-8e33c69d8b4c60137606db57c';
-  const url = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${searchQuery}&page=1&per_page=12&key=${API_KEY}`;
+  clearGallery();
 
-  fetch(url)
-    .then(r => r.json())
-    .then(renderImgs);
+  imagesApiService.query = event.currentTarget.elements.query.value;
+
+  imagesApiService.resetPage();
+
+  imagesApiService.fetchImages().then(renderImgs);
 }
 
 function renderImgs(images) {
   const markup = cardTemplate(images);
-  console.log(markup);
-  refs.container.insertAdjacentHTML('beforeend', markup);
+  refs.gallery.insertAdjacentHTML('beforeend', markup);
+}
+
+function clearGallery() {
+  refs.gallery.innerHTML = '';
+}
+
+function renderMore() {
+  imagesApiService.fetchImages().then(renderImgs);
 }
