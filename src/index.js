@@ -3,48 +3,75 @@ import cardTemplate from './templates/card-item.hbs';
 
 import ImagesApiService from './js/components/images-services';
 
-const refs = {
-  searchForm: document.getElementById('search-form'),
-  gallery: document.querySelector('.gallery-js'),
-  loadMoreBtn: document.querySelector('.load-more-button'),
-  observerItem: document.querySelector('.observer-item'),
-};
+import { onError, onFetchError } from './js/components/notifications';
 
-const intersectionHandler = entries => {
-  const { isIntersecting } = entries[0];
-  if (isIntersecting) {
-    renderMore();
-  }
-};
+import getRefs from './js/components/getRefs';
+const refs = getRefs();
 
 const imagesApiService = new ImagesApiService();
+
 const observer = new IntersectionObserver(intersectionHandler);
-observer.observe(refs.observerItem);
+
+import * as basicLightbox from 'basiclightbox';
+import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
 
 refs.searchForm.addEventListener('submit', onSearch);
-refs.loadMoreBtn.addEventListener('click', renderMore);
+refs.gallery.addEventListener('click', setLightbox);
+
+function setLightbox(event) {
+  const bigImgUrl = event.target.dataset.lightboxImg;
+  console.log(bigImgUrl);
+  const instance = basicLightbox.create(`
+    <img src="${bigImgUrl}" width="800" height="600">
+`);
+
+  instance.show();
+}
 
 function onSearch(event) {
   event.preventDefault();
 
   clearGallery();
 
-  imagesApiService.query = event.currentTarget.elements.query.value;
+  const inputValue = event.currentTarget.elements.query.value;
+
+  if (inputValue === ' ') {
+    return onError();
+  }
+
+  if (event.currentTarget.elements.query.value === '') {
+    return onError();
+  }
+
+  imagesApiService.query = inputValue;
 
   imagesApiService.resetPage();
 
-  imagesApiService.fetchImages().then(renderImgs);
+  imagesApiService.fetchImages().then(renderImgs).catch(onFetchError);
 }
 
 function renderImgs(images) {
+  if (images.length === 0) {
+    return onError();
+  }
   const markup = cardTemplate(images);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
+  observer.observe(refs.observerItem);
 }
 
 function clearGallery() {
   refs.gallery.innerHTML = '';
+  imagesApiService.resetQuery();
+  observer.unobserve(refs.observerItem);
 }
 
 function renderMore() {
   imagesApiService.fetchImages().then(renderImgs);
+}
+
+function intersectionHandler(entries) {
+  const { isIntersecting } = entries[0];
+  if (isIntersecting) {
+    renderMore();
+  }
 }

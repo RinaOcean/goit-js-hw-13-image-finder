@@ -5,17 +5,26 @@ export default class ImagesApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.loadMore = this.loadMore.bind(this);
+    // this.loadMore = this.loadMore.bind(this);
   }
 
-  fetchImages() {
+  async fetchImages() {
     const url = `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`;
 
-    return fetch(url)
-      .then(response => response.json())
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw response;
+    }
+
+    return response
+      .json()
       .then(({ hits }) => {
         this.incrementPage();
         return hits;
+      })
+      .catch(err => {
+        console.warn(err);
       });
   }
 
@@ -27,11 +36,10 @@ export default class ImagesApiService {
     this.page = 1;
   }
 
-  loadMore() {
-    this.incrementPage();
-    this.fetchImages();
-    console.log(this.page);
-  }
+  // loadMore() {
+  //   this.incrementPage();
+  //   this.fetchImages();
+  // }
 
   get query() {
     return this.searchQuery;
@@ -39,5 +47,9 @@ export default class ImagesApiService {
 
   set query(newQuery) {
     this.searchQuery = newQuery;
+  }
+
+  resetQuery() {
+    this.searchQuery = '';
   }
 }
