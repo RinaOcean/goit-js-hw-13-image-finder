@@ -20,6 +20,7 @@ export default class ImagesApiService {
     return response
       .json()
       .then(({ hits }) => {
+        console.log(hits);
         this.incrementPage();
         return hits;
       })
@@ -36,20 +37,11 @@ export default class ImagesApiService {
     this.page = 1;
   }
 
-  // loadMore() {
-  //   this.incrementPage();
-  //   this.fetchImages();
-  // }
-
   get query() {
     return this.searchQuery;
   }
 
   set query(newQuery) {
     this.searchQuery = newQuery;
-  }
-
-  resetQuery() {
-    this.searchQuery = '';
   }
 }

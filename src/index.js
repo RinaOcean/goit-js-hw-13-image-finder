@@ -35,11 +35,13 @@ function onSearch(event) {
 
   const inputValue = event.currentTarget.elements.query.value;
 
-  if (inputValue === ' ') {
+  const str = new RegExp('[^a-zA-Z]');
+
+  if (str.test(inputValue)) {
     return onError();
   }
 
-  if (event.currentTarget.elements.query.value === '') {
+  if (inputValue === '') {
     return onError();
   }
 
@@ -61,7 +63,7 @@ function renderImgs(images) {
 
 function clearGallery() {
   refs.gallery.innerHTML = '';
-  imagesApiService.resetQuery();
+
   observer.unobserve(refs.observerItem);
 }
 
