@@ -35,9 +35,9 @@ function onSearch(event) {
 
   const inputValue = event.currentTarget.elements.query.value;
 
-  const str = new RegExp('[^a-zA-Z]');
+  const str = new RegExp('[a-zA-Z]');
 
-  if (str.test(inputValue)) {
+  if (!str.test(inputValue)) {
     return onError();
   }
 
