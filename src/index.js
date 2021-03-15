@@ -12,27 +12,27 @@ const imagesApiService = new ImagesApiService();
 
 const observer = new IntersectionObserver(intersectionHandler);
 
-import * as basicLightbox from 'basiclightbox';
-import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
+// import * as basicLightbox from 'basiclightbox';
+// import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
+import setLightbox from './js/components/lightbox';
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.gallery.addEventListener('click', setLightbox);
 
-function setLightbox(event) {
-  const bigImgUrl = event.target.dataset.lightboxImg;
-  console.log(bigImgUrl);
-  const instance = basicLightbox.create(`
-    <img src="${bigImgUrl}" width="800" height="600">
-`);
+// function setLightbox(event) {
+//   const bigImgUrl = event.target.dataset.lightboxImg;
+//   const instance = basicLightbox.create(`
+//     <div style:"background-image: url('./images/loading1.gif')"><img src="${bigImgUrl}" width="800" height="600"></div>
+// `);
 
-  instance.show();
-}
+//   instance.show();
+// }
 
 function onSearch(event) {
   event.preventDefault();
 
   clearGallery();
-
+  refs.loader.classList.remove('hide-loader');
   const inputValue = event.currentTarget.elements.query.value;
 
   const str = new RegExp('[a-zA-Z]');
@@ -68,7 +68,7 @@ function clearGallery() {
 }
 
 function renderMore() {
-  imagesApiService.fetchImages().then(renderImgs);
+  imagesApiService.fetchImages().then(renderImgs).then(hideLoader);
 }
 
 function intersectionHandler(entries) {
@@ -77,3 +77,8 @@ function intersectionHandler(entries) {
     renderMore();
   }
 }
+
+function hideLoader() {
+  refs.loader.classList.add('hide-loader');
+}
+console.log(refs.loader);

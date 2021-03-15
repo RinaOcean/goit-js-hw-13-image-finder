@@ -16,7 +16,7 @@ function onFetchError() {
 }
 
 const notyf = new Notyf({
-  duration: 2000,
+  duration: 3000,
   position: {
     x: 'center',
     y: 'top',
@@ -25,7 +25,7 @@ const notyf = new Notyf({
     {
       type: 'warning',
       background: 'orange',
-      message: '',
+
       icon: {
         className: 'material-icons',
         tagName: 'i',

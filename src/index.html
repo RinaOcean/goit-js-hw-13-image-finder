@@ -8,25 +8,32 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <title>Webpack Starter Kit</title>
+    <title>SearchFor</title>
   </head>
 
   <body>
     <div class="container">
       <div class="form-wrapper">
         <form class="search-form" id="search-form">
+          <label class="label" for="query">Lets find something nice :)</label>
           <input
             type="text"
             name="query"
             autocomplete="off"
             placeholder="Search images..."
+            id="query"
           />
-          <button class="search-button" type="submit">Search</button>
+          <button class="search-button" type="submit">
+            <svg class="search-svg" width="20" height="20">
+              <use href="./images/sprite.svg#icon-search"></use>
+            </svg>
+          </button>
         </form>
       </div>
 
       <ul class="gallery gallery-js"></ul>
     </div>
     <div class="observer-item"></div>
+    <div class="loader hide-loader" id="loader"></div>
   </body>
 </html>

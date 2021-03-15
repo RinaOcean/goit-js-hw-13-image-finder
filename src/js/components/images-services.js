@@ -5,7 +5,6 @@ export default class ImagesApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    // this.loadMore = this.loadMore.bind(this);
   }
 
   async fetchImages() {
@@ -20,8 +19,8 @@ export default class ImagesApiService {
     return response
       .json()
       .then(({ hits }) => {
-        console.log(hits);
         this.incrementPage();
+
         return hits;
       })
       .catch(err => {
