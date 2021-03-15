@@ -21,17 +21,19 @@ function onSearch(event) {
   event.preventDefault();
 
   clearGallery();
-  hideLoader();
+
   refs.loader.classList.remove('hide-loader');
   const inputValue = event.currentTarget.elements.query.value;
 
   const str = new RegExp('[a-zA-Z]');
 
   if (!str.test(inputValue)) {
+    hideLoader();
     return onError();
   }
 
   if (inputValue === '') {
+    hideLoader();
     return onError();
   }
 
