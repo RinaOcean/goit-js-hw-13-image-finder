@@ -27,12 +27,7 @@ function onSearch(event) {
 
   const str = new RegExp('[a-zA-Z]');
 
-  if (!str.test(inputValue)) {
-    hideLoader();
-    return onError();
-  }
-
-  if (inputValue === '') {
+  if (!str.test(inputValue) || inputValue === '') {
     hideLoader();
     return onError();
   }
