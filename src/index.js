@@ -12,26 +12,16 @@ const imagesApiService = new ImagesApiService();
 
 const observer = new IntersectionObserver(intersectionHandler);
 
-// import * as basicLightbox from 'basiclightbox';
-// import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
 import setLightbox from './js/components/lightbox';
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.gallery.addEventListener('click', setLightbox);
 
-// function setLightbox(event) {
-//   const bigImgUrl = event.target.dataset.lightboxImg;
-//   const instance = basicLightbox.create(`
-//     <div style:"background-image: url('./images/loading1.gif')"><img src="${bigImgUrl}" width="800" height="600"></div>
-// `);
-
-//   instance.show();
-// }
-
 function onSearch(event) {
   event.preventDefault();
 
   clearGallery();
+  hideLoader();
   refs.loader.classList.remove('hide-loader');
   const inputValue = event.currentTarget.elements.query.value;
 
@@ -81,4 +71,3 @@ function intersectionHandler(entries) {
 function hideLoader() {
   refs.loader.classList.add('hide-loader');
 }
-console.log(refs.loader);
