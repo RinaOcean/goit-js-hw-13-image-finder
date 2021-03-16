@@ -133,6 +133,7 @@ input:focus {
 
 .photo-card {
   height: inherit;
+  background-size: contain;
 }
 
 .photo-card img {
