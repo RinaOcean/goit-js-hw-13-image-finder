@@ -74,3 +74,18 @@ function intersectionHandler(entries) {
 function hideLoader() {
   refs.loader.classList.add('hide-loader');
 }
+
+// прокрутка
+refs.scrollElem.addEventListener('click', goUp);
+
+window.addEventListener('scroll', function () {
+  if (pageYOffset > 100) {
+    refs.scrollElem.style.opacity = '1';
+  } else {
+    refs.scrollElem.style.opacity = '0';
+  }
+});
+
+function goUp() {
+  window.scrollTo(0, 0);
+}

@@ -93,6 +93,7 @@ input:focus {
   border-style: none;
   background-color: #ff8b88;
   outline-style: none;
+  transition: all 0.5s ease-in;
 }
 
 .search-button:hover,
@@ -199,4 +200,38 @@ input:focus {
 
 .lightbox-wrapper {
   background-size: contain;
+}
+
+.scroll-up {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #ff8b88;
+  background-color: transparent;
+  border-radius: 50%;
+  border-style: none;
+  outline-style: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  opacity: 0;
+  transition: all 0.5s ease-in;
+}
+
+.scroll-svg {
+  margin: auto;
+
+  width: 40px;
+  height: 40px;
+  fill: #ff8b88;
+}
+
+.scroll-up:hover {
+  background-color: #d66e6a;
+}
+
+.scroll-svg:hover {
+  fill: #ffffff;
 }
