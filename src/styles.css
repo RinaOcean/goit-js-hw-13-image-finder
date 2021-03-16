@@ -196,3 +196,7 @@ input:focus {
 .hide-loader {
   display: none;
 }
+
+.lightbox-wrapper {
+  background-size: contain;
+}
