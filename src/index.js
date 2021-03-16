@@ -21,8 +21,8 @@ function onSearch(event) {
   event.preventDefault();
 
   clearGallery();
-
   refs.loader.classList.remove('hide-loader');
+
   const inputValue = event.currentTarget.elements.query.value;
 
   const str = new RegExp('[a-zA-Z]');
@@ -41,8 +41,10 @@ function onSearch(event) {
 
 function renderImgs(images) {
   if (images.length === 0) {
+    hideLoader();
     return onError();
   }
+
   const markup = cardTemplate(images);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
   observer.observe(refs.observerItem);
@@ -55,7 +57,11 @@ function clearGallery() {
 }
 
 function renderMore() {
-  imagesApiService.fetchImages().then(renderImgs).then(hideLoader);
+  imagesApiService
+    .fetchImages()
+    .then(renderImgs)
+    .then(hideLoader)
+    .catch(onFetchError);
 }
 
 function intersectionHandler(entries) {
