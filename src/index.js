@@ -1,7 +1,7 @@
 import './styles.css';
 import cardTemplate from './templates/card-item.hbs';
 
-import ImagesApiService from './js/components/images-services';
+import ImagesApiService from './js/components/apiService';
 
 import { onError, onFetchError } from './js/components/notifications';
 
